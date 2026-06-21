@@ -1,11 +1,10 @@
 import 'package:bookly/Features/home/data/models/book_model/sales_info.dart';
 import 'package:bookly/Features/home/data/models/book_model/search_info_model.dart';
 import 'package:bookly/Features/home/data/models/book_model/volume_info_model.dart';
-import 'package:equatable/equatable.dart';
-
+import 'package:bookly/Features/home/domain/entities/book_entity.dart';
 import 'access_info_model.dart';
 
-class BookModel extends Equatable {
+class BookModel extends BookEntity {
   final String id;
   final String title;
   final String author;
@@ -36,9 +35,15 @@ class BookModel extends Equatable {
     this.previewUrl = '',
     this.volumeInfo,
     this.saleInfo,
-    this.accessInfo,
-    this.searchInfo,
-  });
+    this.accessInfo, this.searchInfo,
+  }) : super(
+    bookId: id,
+    bookImage: coverUrl,
+    bookTitle: title,
+    authorName: author,
+    price: price,
+    rating: rating,
+  );
 
   @override
   List<Object?> get props => [
@@ -88,8 +93,6 @@ class BookModel extends Equatable {
           volumeInfoJson?['description'] as String? ??
           json['description'] as String? ??
           '',
-
-
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       rating:
           (volumeInfoJson?['averageRating'] as num?)?.toDouble() ??
