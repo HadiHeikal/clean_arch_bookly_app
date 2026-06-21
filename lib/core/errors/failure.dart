@@ -5,7 +5,6 @@ abstract class Failure {
 
 class ServerFailure extends Failure {
   final int? statusCode;
-
   const ServerFailure(super.message, {this.statusCode});
 }
 
