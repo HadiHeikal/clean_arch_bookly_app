@@ -1,0 +1,107 @@
+import 'package:bookly/Features/home/data/models/book_model/sales_info.dart';
+import 'package:bookly/Features/home/data/models/book_model/search_info_model.dart';
+import 'package:bookly/Features/home/data/models/book_model/volume_info_model.dart';
+import 'package:equatable/equatable.dart';
+
+import 'access_info_model.dart';
+
+class BookModel extends Equatable {
+  final String id;
+  final String title;
+  final String author;
+  final String coverUrl;
+  final String description;
+  final double price;
+  final double rating;
+  final int ratingCount;
+  final double readingProgress;
+  final String genre;
+  final String previewUrl;
+  final VolumeInfo? volumeInfo;
+  final SaleInfo? saleInfo;
+  final AccessInfo? accessInfo;
+  final SearchInfo? searchInfo;
+
+  const BookModel({
+    required this.id,
+    required this.title,
+    required this.author,
+    required this.coverUrl,
+    required this.description,
+    this.price = 0.0,
+    this.rating = 0.0,
+    this.ratingCount = 0,
+    this.readingProgress = 0.0,
+    this.genre = '',
+    this.previewUrl = '',
+    this.volumeInfo,
+    this.saleInfo,
+    this.accessInfo,
+    this.searchInfo,
+  });
+
+  @override
+  List<Object?> get props => [
+    id,
+    title,
+    author,
+    coverUrl,
+    description,
+    price,
+    rating,
+    ratingCount,
+    readingProgress,
+    genre,
+    previewUrl,
+    volumeInfo,
+    saleInfo,
+    accessInfo,
+    searchInfo,
+  ];
+  factory BookModel.fromJson(Map<String, dynamic> json) {
+    final volumeInfoJson = json['volumeInfo'] as Map<String, dynamic>?;
+    final accessInfoJson = json['accessInfo'] as Map<String, dynamic>?;
+    final previewLink =
+        volumeInfoJson?['previewLink'] as String? ??
+        accessInfoJson?['webReaderLink'] as String? ??
+        json['previewUrl'] as String? ??
+        '';
+
+    return BookModel(
+      id: json['id'] as String? ?? '',
+      title:
+          volumeInfoJson?['title'] as String? ??
+          json['title'] as String? ??
+          'No Title',
+      author:
+          (volumeInfoJson?['authors'] as List<dynamic>?)?.first as String? ??
+          json['author'] as String? ??
+          'Unknown Author',
+      coverUrl:
+          (volumeInfoJson?['imageLinks']?['thumbnail'] as String?)?.replaceAll(
+            'http://',
+            'https://',
+          ) ??
+          (json['coverUrl'] as String?)?.replaceAll('http://', 'https://') ??
+          '',
+      description:
+          volumeInfoJson?['description'] as String? ??
+          json['description'] as String? ??
+          '',
+
+
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      rating:
+          (volumeInfoJson?['averageRating'] as num?)?.toDouble() ??
+          (json['rating'] as num?)?.toDouble() ??
+          0.0,
+      ratingCount:
+          volumeInfoJson?['ratingsCount'] as int? ??
+          json['ratingCount'] as int? ??
+          0,
+      readingProgress: (json['readingProgress'] as num?)?.toDouble() ?? 0.0,
+      genre: json['genre'] as String? ?? '',
+      previewUrl: previewLink.replaceAll('http://', 'https://'),
+    );
+  }
+}
