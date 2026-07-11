@@ -18,3 +18,5 @@ String searchSimilarBooksEndpoint(String query, {int maxResults = 10}) {
   final encodedQuery = Uri.encodeQueryComponent(query);
   return "/volumes?Filtering=free-ebooks&orderBy=relevance&maxResults=$maxResults&q=$encodedQuery&key=$apiKey";
 }
+
+const kFeaturedBox = 'featured_box';
