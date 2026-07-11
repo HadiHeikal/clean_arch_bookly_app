@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/functions/books_box_cache_data.dart';
 import 'home_remote_data_source.dart';
 import 'package:bookly/core/services/api_service.dart';
 import 'package:bookly/Features/home/domain/entities/book_entity.dart';
@@ -24,6 +25,8 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource{
     try{
       var data = await apiService.get(searchFeaturedBooksEndpoint);
       List<BookEntity> booksList = getBooksList(data);
+      // we make the function at separated file to apply single responsibility principle at SOLID
+      saveDataAtBooksBox(booksList: booksList, kFeaturedBox: kFeaturedBox);
       return booksList;
     } catch (e){
       debugPrint(e.toString());
