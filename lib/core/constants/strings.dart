@@ -19,4 +19,5 @@ String searchSimilarBooksEndpoint(String query, {int maxResults = 10}) {
   return "/volumes?Filtering=free-ebooks&orderBy=relevance&maxResults=$maxResults&q=$encodedQuery&key=$apiKey";
 }
 
-const kFeaturedBox = 'featured_box';
+const kFeaturedBooksBox = 'featured_box';
+const kNewestBooksBox = 'newest_box';

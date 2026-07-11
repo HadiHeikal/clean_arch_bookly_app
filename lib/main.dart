@@ -4,6 +4,7 @@ import 'package:bookly/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'core/constants/strings.dart';
 
 void main() async{
   runApp(const Bookly());
@@ -13,7 +14,8 @@ void main() async{
   Hive.registerAdapter(BookEntityAdapter());
 
   // open featured box that data will be cashed on
-  await Hive.openBox('kFeaturedBox');
+  await Hive.openBox<BookEntity>(kFeaturedBooksBox);
+  await Hive.openBox<BookEntity>(kNewestBooksBox);
 }
 
 class Bookly extends StatelessWidget {

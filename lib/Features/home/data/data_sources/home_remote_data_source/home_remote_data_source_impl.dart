@@ -26,7 +26,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource{
       var data = await apiService.get(searchFeaturedBooksEndpoint);
       List<BookEntity> booksList = getBooksList(data);
       // we make the function at separated file to apply single responsibility principle at SOLID
-      saveDataAtBooksBox(booksList: booksList, kFeaturedBox: kFeaturedBox);
+      saveDataAtBooksBox(booksList: booksList, boxName: kFeaturedBooksBox);
       return booksList;
     } catch (e){
       debugPrint(e.toString());
@@ -40,6 +40,8 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource{
     try{
       var data = await apiService.get(searchFreeNewestBooksEndpoint);
       List<BookEntity> booksList = getBooksList(data);
+      // we make the function at separated file to apply single responsibility principle at SOLID
+      saveDataAtBooksBox(booksList: booksList, boxName: kNewestBooksBox);
       return booksList;
     } catch (e){
       debugPrint(e.toString());
