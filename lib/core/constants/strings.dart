@@ -3,7 +3,7 @@ final String baseUrl = "https://www.googleapis.com/books/v1/";
 final String apiKey = dotenv.env['BOOKS_API_KEY'] ?? "";
 
 final String searchFreeNewestBooksEndpoint =
-    "/volumes?Filtering=free-ebooks&sorting=newest&q=programming&key=$apiKey";
+    "/volumes?Filtering=free-ebooks&orderBy=newest&q=programming&key=$apiKey";
 
 final String searchFeaturedBooksEndpoint =
     "/volumes?Filtering=free-ebooks&q=programming&key=$apiKey";
