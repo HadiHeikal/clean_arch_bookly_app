@@ -11,13 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/constants/strings.dart';
 import 'core/utils/functions/setup_service_locator.dart';
 
 
 void main() async{
-  runApp(
-      const Bookly());
+
+  // setup service locator
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  setupServiceLocator();
   // Hive init
   await Hive.initFlutter();
   // register BookEntityAdapter
@@ -27,7 +31,10 @@ void main() async{
   await Hive.openBox<BookEntity>(kFeaturedBooksBox);
   await Hive.openBox<BookEntity>(kNewestBooksBox);
 
+  // bloc observer
   Bloc.observer = SimpleBlocObserver();
+
+  runApp(const Bookly());
 }
 
 class Bookly extends StatelessWidget {
@@ -39,12 +46,12 @@ class Bookly extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context){
-              return FeaturedBooksCubit(featuredBooksUseCase:FetchFeaturedBooksUseCase(getIt.get<HomeRepoImpl>()));
+              return FeaturedBooksCubit(featuredBooksUseCase:FetchFeaturedBooksUseCase(getIt.get<HomeRepoImpl>()))..fetchFeaturedBook();
             }
         ),
         BlocProvider(
             create: (context){
-              return NewestBooksCubit(fetchNewestBooksUseCase: FetchNewestBooksUseCase(getIt.get<HomeRepoImpl>()));
+              return NewestBooksCubit(fetchNewestBooksUseCase: FetchNewestBooksUseCase(getIt.get<HomeRepoImpl>()))..fetchNewestBooks();
             }
         ),
       ],
