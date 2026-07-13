@@ -7,14 +7,14 @@ import 'package:dartz_plus/dartz_plus.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../core/constants/strings.dart';
-import '../../../../core/functions/books_box_cache_data.dart';
 import '../../../../core/services/api_exceptions.dart';
+import '../../../../core/utils/functions/books_box_cache_data.dart';
 
 class HomeRepoImpl extends HomeRepo{
   final HomeLocalDataSource homeLocalDataSource ;
   final HomeRemoteDataSource homeRemoteDataSource ;
 
-  HomeRepoImpl(this.homeLocalDataSource, {required this.homeRemoteDataSource});
+  HomeRepoImpl({required this.homeLocalDataSource, required this.homeRemoteDataSource});
   @override
   Future<Either<Failure, List<BookEntity>>> fetchFeaturedBooks() async {
     try{
