@@ -25,8 +25,8 @@ if (flutterVersionName == null) {
 android {
     namespace "com.example.clean_arch_bookly_app"
 
-    // 1️⃣ رفعنا الـ compileSdk لـ 35 بناءً على طلب باكيج jni
-    compileSdkVersion 35
+    // 1️⃣ رفعنا الـ compileSdk لـ 36 بناءً على طلب باكيج shared_preferences_android
+    compileSdkVersion 36
 
     // 2️⃣ ضفنا نسخة الـ NDK المطلوبة بالظبط
     ndkVersion = "28.2.13676358"
@@ -48,8 +48,8 @@ android {
         applicationId "com.example.clean_arch_bookly_app"
         minSdkVersion flutter.minSdkVersion
 
-        // 3️⃣ ارفع الـ targetSdkVersion لـ 35 برضه لتتوافق مع الـ Compile SDK
-        targetSdkVersion 35
+        // 3️⃣ ارفع الـ targetSdkVersion لـ 36 برضه لتتوافق مع الـ Compile SDK
+        targetSdkVersion 36
 
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
