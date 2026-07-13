@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/functions/books_box_cache_data.dart';
+import '../../../../core/services/api_exceptions.dart';
 
 class HomeRepoImpl extends HomeRepo{
   final HomeLocalDataSource homeLocalDataSource ;
@@ -30,7 +31,9 @@ class HomeRepoImpl extends HomeRepo{
       return Either.right(remoteBooks);
     }catch(e){
       if(e is DioException){
-        return Either.left(ServerFailure(e.toString()));
+        // Here we use ApiException handler to extract the message
+        final apiError = ApiException.handleError(e);
+        return Either.left(ServerFailure(apiError.message));
       }
       return Either.left(Failure(e.toString()));
     }
@@ -52,7 +55,9 @@ class HomeRepoImpl extends HomeRepo{
       return Either.right(remoteBooks);
     }catch(e){
       if(e is DioException){
-        return Either.left(ServerFailure(e.toString()));
+        // Here we use ApiException handler to extract the message
+        final apiError = ApiException.handleError(e);
+        return Either.left(ServerFailure(apiError.message));
       }
       return Either.left(Failure(e.toString()));
     }
