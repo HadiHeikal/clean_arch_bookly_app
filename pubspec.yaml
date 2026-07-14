@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.17.6 <3.0.0"
 
 dependencies:
+  cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.2
   dartz_plus: ^0.3.0
   dio: ^5.9.2
